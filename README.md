@@ -6,7 +6,32 @@ DeFi users routinely grant contracts permission to spend tokens or move entire N
 
 DeFi Sentinel joins both worlds: it tracks a multichain portfolio, detects dangerous authorization and fund-flow patterns, explains the evidence, and sends normalized incidents to Wazuh or Microsoft Sentinel.
 
-> Status: research-complete / implementation backlog ready. DeFi Sentinel never asks for or stores seed phrases or private keys and never sends transactions.
+> Status: Phase 1 implementation in progress. DeFi Sentinel never asks for or stores seed phrases or private keys and never sends transactions.
+
+## Run locally
+
+Requirements: Node.js 22+ and pnpm 10.30.1.
+
+```bash
+git clone https://github.com/adletgamer/Defi-Sentinel.git
+cd Defi-Sentinel
+pnpm install
+pnpm dev
+```
+
+Open `http://localhost:3000`. The current dashboard uses safe demonstration data while the read-only RPC adapter and database are implemented. Copy `.env.example` to `.env.local` only when adding provider credentials; variable names are documented, but no live secrets belong in git.
+
+Quality checks are reproducible from the repository root:
+
+```bash
+pnpm format:check
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+The workspace is split into `apps/web`, `services/watcher`, `packages/domain`, `packages/rules` and `infra`. See [the architecture blueprint](docs/RESEARCH.md) for system boundaries and threat-model decisions.
 
 ## What it detects
 

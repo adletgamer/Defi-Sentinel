@@ -3,9 +3,12 @@
 !.env.example
 node_modules/
 .next/
+dist/
+.turbo/
 target/
 coverage/
 playwright-report/
 *.log
+*.tsbuildinfo
 .DS_Store
 Thumbs.db

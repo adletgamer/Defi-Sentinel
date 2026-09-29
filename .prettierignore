@@ -1,0 +1,9 @@
+.next
+coverage
+dist
+node_modules
+pnpm-lock.yaml
+docs
+.github/ISSUE_TEMPLATE
+README.md
+.env.example
