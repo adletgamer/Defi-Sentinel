@@ -1,0 +1,36 @@
+<group name="defi_sentinel,web3,">
+  <rule id="110000" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="product">^defi-sentinel$</field>
+    <description>DeFi Sentinel event received</description>
+    <group>defi_sentinel_event,</group>
+  </rule>
+
+  <rule id="110001" level="8">
+    <if_sid>110000</if_sid>
+    <field name="severity" type="pcre2">^(5[0-9]|6[0-9])$</field>
+    <description>DeFi Sentinel medium-risk finding: $(rule.id)</description>
+    <group>defi_sentinel_medium,</group>
+  </rule>
+
+  <rule id="110002" level="12">
+    <if_sid>110000</if_sid>
+    <field name="severity" type="pcre2">^(7[0-9]|8[0-4])$</field>
+    <description>DeFi Sentinel high-risk finding: $(rule.id)</description>
+    <group>defi_sentinel_high,</group>
+  </rule>
+
+  <rule id="110003" level="15">
+    <if_sid>110000</if_sid>
+    <field name="severity" type="pcre2">^(8[5-9]|9[0-9]|100)$</field>
+    <description>DeFi Sentinel critical finding: $(rule.id)</description>
+    <group>defi_sentinel_critical,</group>
+  </rule>
+
+  <rule id="110010" level="15" frequency="2" timeframe="600">
+    <if_matched_sid>110002</if_matched_sid>
+    <same_field>wallet.address</same_field>
+    <description>Multiple high-risk DeFi events for the same wallet within 10 minutes</description>
+    <group>defi_sentinel_correlated,</group>
+  </rule>
+</group>
